@@ -617,9 +617,12 @@ namespace MazeGenerator
                         {
                             for (int row = 0; row < wmColumnCount; row++)
                             {
-                                if (wholeGrid[col, row] == 1 && pathfinderGrid[col, row] == 1)
+                                if (wholeGrid[col, row] == 1)
                                 {
-                                    pathfinderGrid[col, row] = 9;
+                                    if (pathfinderGrid[col, row] == 1)
+                                        pathfinderGrid[col, row] = 9;
+                                    else 
+                                        pathfinderGrid[col, row] = 1;
                                 }
                             }
                         }
