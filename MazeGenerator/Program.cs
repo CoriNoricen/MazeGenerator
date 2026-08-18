@@ -59,21 +59,31 @@ namespace MazeGenerator
             wmRowCount = lmRowCount * gridSizeCount;
             wholeGrid = new int[wmRowCount, wmColumnCount];
 
+            //clears entire console (not just screen console)
+            Console.Clear();
+            Console.WriteLine("\x1b[3J");
+
+            int resetCounter = 0;
             //repeats until a path is found
-            while (!targetMet)
+            do
             {
                 LargeGridPopulation();
                 WholeGridPopulation();
 
                 //rudimentary pathfinding technique
                 PathfindingChecker();
-            }
+
+                //prevents infinite pathfinding
+                resetCounter++;
+                if (resetCounter == 100)
+                {
+                    targetMet = true;
+                    Console.WriteLine("No Path could be found through maze. Incomplete maze generated.\n");
+                }
+            } while (!targetMet);
+
             //reset for loop
             targetMet = false;
-
-            //clears entire console (not just screen console)
-            Console.Clear();
-            Console.WriteLine("\x1b[3J");
 
             DrawFinalGrid(wholeGrid);
 
